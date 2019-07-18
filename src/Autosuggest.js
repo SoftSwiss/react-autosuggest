@@ -396,7 +396,7 @@ export default class Autosuggest extends Component {
   };
 
   onSuggestionClick = event => {
-    const { alwaysRenderSuggestions, focusInputOnSuggestionClick } = this.props;
+    const { alwaysRenderSuggestions, focusInputOnSuggestionClick, inputProps, shouldRenderSuggestions } = this.props;
     const { sectionIndex, suggestionIndex } = this.getSuggestionIndices(
       this.findSuggestionElement(event.target)
     );
@@ -420,6 +420,10 @@ export default class Autosuggest extends Component {
 
     if (focusInputOnSuggestionClick === true) {
       this.input.focus();
+
+      if (shouldRenderSuggestions(inputProps.value)) {
+        this.revealSuggestions();
+      }
     } else {
       this.onBlur();
     }
